@@ -1,0 +1,172 @@
+#File name: Graphing_USLG25.py
+<Graphing_USLG25>
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    orientation: 'vertical'
+    BoxLayout:
+        BoxLayout:
+            GraphForce:
+                id:graphforce
+
+        BoxLayout:
+            GraphCoefficient:
+                id:graphcoefficient
+
+    BoxLayout:
+        BoxLayout:
+            GraphRatio:
+                id:graphratio
+
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        text: '風速 U [m/s]'
+                        color:0, 0, 0, 1
+                    TextInput
+                        id: velocity
+                        size_hint_x: 3
+                        multiline: False
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        text: '気圧 P [hPa]'
+                        color:0, 0, 0, 1
+                    TextInput
+                        id: pressure
+                        size_hint_x: 3
+                        multiline: False
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        text: '気温 T [℃]'
+                        color:0, 0, 0, 1
+                    TextInput
+                        id: temperature
+                        size_hint_x: 3
+                        multiline: False
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        text: '代表長さ L [mm]'
+                        color:0, 0, 0, 1
+                    TextInput
+                        id: length
+                        size_hint_x: 3
+                        multiline: False
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        text: 'レイノルズ数 Re'
+                        color:0, 0, 0, 1
+                    Label:
+                        id: reynolds
+                        text:'レイノルズ数が表示されます'
+                        color:0, 0, 0, 1
+                        size_hint_x: 3
+                        multiline: False
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        text: '翼面積 S [mm²]'
+                        color:0, 0, 0, 1
+                    TextInput
+                        id: wing_area
+                        size_hint_x: 3
+                        multiline: False
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        text: '迎角の範囲 α [deg]'
+                        color:0, 0, 0, 1
+                        size_hint_x: 6
+                    TextInput
+                        id:AoA_start
+                        multiline: False
+                        size_hint_x: 4
+                    Label:
+                        text: '～'
+                        color:0, 0, 0, 1
+                        size_hint_x: 4
+                    TextInput
+                        id:AoA_end
+                        multiline: False
+                        size_hint_x: 4
+                    TextInput
+                        id:AoA_step
+                        multiline: False
+                        size_hint_x: 3
+                    Label:
+                        text: '刻み'
+                        color:0, 0, 0, 1
+                        size_hint_x: 3
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        size_hint_x: 0.5
+                        text: '治具'
+                        color:0, 0, 0, 1
+                    TextInput:
+                        id: nowing_folder_path
+                        multiline: False
+                    Button:
+                        size_hint_x: 0.5
+                        text:'参照'
+                        on_press: root.reference('nowing')
+            BoxLayout:
+                BoxLayout:
+                    padding: 5
+                    Label:
+                        size_hint_x: 0.5
+                        text: '本試験'
+                        color:0, 0, 0, 1
+                    TextInput:
+                        id: Force_folder_path
+                        multiline: False
+                    Button:
+                        size_hint_x: 0.5
+                        text:'参照'
+                        on_press: root.reference('Force')
+            BoxLayout:
+                padding: 5
+                size_hint_y: 2
+                Button:
+                    text: '実行'
+                    on_press: root.culc_lift_drag()
+
+<Load_Folder>
+    BoxLayout:
+        orientation: 'vertical'
+        FileChooserListView:
+            id:file_chooser
+            size_hint_y: 9
+        BoxLayout:
+            padding: 10
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint_x: 8
+                text: file_chooser.path
+                color:0, 0, 0, 1
+            Button:
+                id:test
+                text: 'Enter'
+                on_press: root.main.load(), root.close_reference()
